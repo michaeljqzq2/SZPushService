@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/smzdm_main.css" rel="stylesheet" />
+    <link href="~/Content/manmanbuy_core.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <script>
+        $(setReferer);
+    </script>
+    <style>
+        hr{
+            color: #000000;
+            background-color: #000000;
+            height:1px;
+        }
+    </style>
+</head>
+<body>
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-success">@TempData["message"]</div>
+    }
+    @RenderBody()
+</body>
+</html>

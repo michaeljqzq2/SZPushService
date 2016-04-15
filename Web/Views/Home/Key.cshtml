@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SZPushService.Model.Keyword>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Key</title>
+    <style>
+        form, .form-inline .form-control {
+            margin-left:10px;
+            margin-top:10px;
+            display: inline-block;
+            width: auto;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    @foreach (var item in Model) {
+        @Html.Partial("~/Views/Home/KeywordEditor.cshtml", item);
+    }
+    @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "form-inline" }))
+    {
+        @Html.TextBox("Word", null, new { @class = "form-control" });
+        <input class="btn btn-sm btn-success form-control"
+               type="submit" value="+" />
+    }
+</body>
+</html>

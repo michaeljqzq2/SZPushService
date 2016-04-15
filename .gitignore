@@ -1,0 +1,6 @@
+SZPushService/bin
+SZPushService/obj
+Web/bin
+Web/obj
+*.suo
+.vs

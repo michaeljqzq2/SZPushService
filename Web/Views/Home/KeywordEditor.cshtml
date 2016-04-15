@@ -1,0 +1,20 @@
+﻿@model SZPushService.Model.Keyword
+<div>
+    @using (Html.BeginForm("Update", "Home", FormMethod.Post, new { @class = "form-inline" }))
+    {
+        @Html.HiddenFor(x => x.Id);
+        @Html.DisplayFor(x => x.Id, new { @class = "form-control"});
+        @Html.TextBoxFor(x => x.Word, new { @class = "form-control" });
+        <input type="submit" class="btn btn-success btn-sm form-control" value="√" />
+    }
+
+    @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { @class = "form-inline" }))
+    {
+        @Html.HiddenFor(x => x.Id);
+        <input type="submit" class="btn btn-danger btn-sm form-control" value="-" />
+    }
+
+
+
+</div>
+
