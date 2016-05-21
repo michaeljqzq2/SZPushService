@@ -11,7 +11,7 @@ namespace SZPushService.Model
 {
     public class Parser
     {
-        public static Dictionary<string, Func<string, List<string>, List<Message>> > Parsers;
+        public static Dictionary<string, Func<string, List<string>, List<Message>>> Parsers;
         static Parser()
         {
             Parsers = new Dictionary<string, Func<string, List<string>, List<Message>>>();
@@ -55,7 +55,7 @@ namespace SZPushService.Model
                     if (detailElement.Count == 0) Console.WriteLine("Can't locate info about details");
                     Regex detailRegex = new Regex(@"<a[^>]+>([^<]*)</a>");
                     string detail = detailElement[0].Html();
-                    var ms = detailRegex.Matches(detail);   
+                    var ms = detailRegex.Matches(detail);
                     foreach (Match mm in ms)
                     {
                         detail = detail.Replace(mm.Groups[0].Value, mm.Groups[1].Value);
@@ -76,7 +76,7 @@ namespace SZPushService.Model
                     db.Messages.Add(message);
                     db.SaveChanges();
                     result.Add(message);
-                    Console.WriteLine("[Domestic] A new item added:{0}",title);
+                    Console.WriteLine("[Domestic] A new item added:{0}", title);
                 }
             }
             return result;
@@ -161,7 +161,7 @@ namespace SZPushService.Model
                     string articleId = smallElement.GetElementsByTag("a")[0].Attributes["href"];
                     var titleElement = smallElement.GetElementsByTag("h2")[0];
                     //string link = titleElement.Attributes["href"];
-                    string title = GB2312ToUtf8(titleElement.Html()); 
+                    string title = GB2312ToUtf8(titleElement.Html());
                     var compareResult = FindKeyword(title, keywords);
                     if (compareResult == null) continue;
 
@@ -172,7 +172,7 @@ namespace SZPushService.Model
                     string price = "";
                     if (m.Success)
                     {
-                        price = m.Groups[1].Value.Replace(@"&nbsp;&nbsp;&nbsp;","");
+                        price = m.Groups[1].Value.Replace(@"&nbsp;&nbsp;&nbsp;", "");
                     }
                     title = priceRegex.Replace(title, "");
 
@@ -191,9 +191,9 @@ namespace SZPushService.Model
                     string outerHtml = element.OuterHtml();
                     Regex hrefRegex = new Regex(@"href=\""([\w|\.]+)\""");
                     ms = hrefRegex.Matches(outerHtml);
-                    foreach(Match mm in ms)
+                    foreach (Match mm in ms)
                     {
-                        outerHtml = outerHtml.Replace(mm.Groups[0].Value, mm.Groups[0].Value.Replace(mm.Groups[1].Value,UData.Urls["Manmanbuy"][0] + mm.Groups[1].Value));
+                        outerHtml = outerHtml.Replace(mm.Groups[0].Value, mm.Groups[0].Value.Replace(mm.Groups[1].Value, UData.Urls["Manmanbuy"][0] + mm.Groups[1].Value));
                     }
 
                     var message = new Message()
@@ -216,20 +216,30 @@ namespace SZPushService.Model
             return result;
         }
 
-        private static string FindKeyword(string content,List<string> keywords)
+        private static string FindKeyword(string content, List<string> keywords)
         {
             content = content.ToLower();
             return keywords.FirstOrDefault(k =>
             {
                 k = k.ToLower();
-                if(!k.Contains(' '))
+                if (!k.Contains(' '))
                 {
                     return content.Contains(k);
                 }
                 else
                 {
                     string[] parts = k.Split(' ');
-                    return parts.All(p => content.Contains(p));
+                    return parts.All(p =>
+                    {
+                        if (p[0] == '-')
+                        {
+                            return !content.Contains(p.Substring(1));
+                        }
+                        else
+                        {
+                            return content.Contains(p);
+                        }
+                    });
                 }
             });
         }
