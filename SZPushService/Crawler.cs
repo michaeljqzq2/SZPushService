@@ -54,7 +54,7 @@ namespace SZPushService
                 string pageHtml = null;
                 if (UData.Urls[type][1] == "GB2312")
                 {
-                    pageHtml = Encoding.Default.GetString(pageData);  //如果获取网站页面采用的是GB2312，则使用这句  
+                    pageHtml = Encoding.GetEncoding("gb2312").GetString(pageData);  //如果获取网站页面采用的是GB2312，则使用这句  
                 }else if (UData.Urls[type][1] == "UTF-8")
                 {
                     pageHtml = Encoding.UTF8.GetString(pageData); //如果获取网站页面采用的是UTF-8，则使用这句

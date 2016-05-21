@@ -161,7 +161,7 @@ namespace SZPushService.Model
                     string articleId = smallElement.GetElementsByTag("a")[0].Attributes["href"];
                     var titleElement = smallElement.GetElementsByTag("h2")[0];
                     //string link = titleElement.Attributes["href"];
-                    string title = titleElement.Html();
+                    string title = GB2312ToUtf8(titleElement.Html()); 
                     var compareResult = FindKeyword(title, keywords);
                     if (compareResult == null) continue;
 
@@ -218,8 +218,10 @@ namespace SZPushService.Model
 
         private static string FindKeyword(string content,List<string> keywords)
         {
+            content = content.ToLower();
             return keywords.FirstOrDefault(k =>
             {
+                k = k.ToLower();
                 if(!k.Contains(' '))
                 {
                     return content.Contains(k);
@@ -230,6 +232,22 @@ namespace SZPushService.Model
                     return parts.All(p => content.Contains(p));
                 }
             });
+        }
+
+        private static string GB2312ToUtf8(string gb2312String)
+        {
+            Encoding fromEncoding = Encoding.GetEncoding("gb2312");
+            Encoding toEncoding = Encoding.UTF8;
+            return EncodingConvert(gb2312String, fromEncoding, toEncoding);
+        }
+
+        private static string EncodingConvert(string fromString, Encoding fromEncoding, Encoding toEncoding)
+        {
+            byte[] fromBytes = fromEncoding.GetBytes(fromString);
+            byte[] toBytes = Encoding.Convert(fromEncoding, toEncoding, fromBytes);
+
+            string toString = toEncoding.GetString(toBytes);
+            return toString;
         }
     }
 }
