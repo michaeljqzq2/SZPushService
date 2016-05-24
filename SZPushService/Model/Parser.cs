@@ -99,7 +99,7 @@ namespace SZPushService.Model
                     if (compareResult == null) continue;
 
                     if (db.Messages.Any(msg => msg.ArticleId == articleId)) continue;
-                    //if (db.Messages.Any(msg => msg.Title.TrimEnd(new char[] { ' ' }) == title.TrimEnd(new char[] { ' ' }))) continue;
+                    if (db.Messages.Any(msg => msg.Title.TrimEnd(new char[] { ' ' }) == title.TrimEnd(new char[] { ' ' }))) continue;
 
                     Regex priceRegex = new Regex(@"<span class=""red"">([^<]*)</span>");
                     Match m = priceRegex.Match(title);
