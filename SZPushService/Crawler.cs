@@ -74,6 +74,7 @@ namespace SZPushService
             using (var db = new SZDbContext())
             {
                 var query = from x in db.Keywords
+                            where x.IsEnabled == true
                             select x.Word;
                 return query.ToList<string>();
             }

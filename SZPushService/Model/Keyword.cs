@@ -14,5 +14,7 @@ namespace SZPushService.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Word { get; set; }
+        [Required]
+        public bool IsEnabled { get; set; }
     }
 }

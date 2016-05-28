@@ -86,6 +86,10 @@
     <Compile Include="Migrations\201512030948299_InitialCreate.Designer.cs">
       <DependentUpon>201512030948299_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605241251498_keywordEnabled.cs" />
+    <Compile Include="Migrations\201605241251498_keywordEnabled.Designer.cs">
+      <DependentUpon>201605241251498_keywordEnabled.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\UData.cs" />
     <Compile Include="Model\Keyword.cs" />
@@ -114,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512040637349_Modify.resx">
       <DependentUpon>201512040637349_Modify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605241251498_keywordEnabled.resx">
+      <DependentUpon>201605241251498_keywordEnabled.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

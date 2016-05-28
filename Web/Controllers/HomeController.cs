@@ -35,6 +35,16 @@ namespace Web.Controllers
             return RedirectToAction("Key");
         }
 
+        public RedirectToRouteResult Toggle(Keyword keyword)
+        {
+            Keyword result = keywordRepository.Toggle(keyword);
+            if (result != null)
+            {
+                TempData["message"] = string.Format("{0} has been {1}", result.Word, result.IsEnabled ? "enabled" : "disabled"); 
+            }
+            return RedirectToAction("Key");
+        }
+
         public RedirectToRouteResult Delete(Keyword keyword)
         {
             Keyword result = keywordRepository.Remove(keyword);

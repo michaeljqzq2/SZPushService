@@ -9,7 +9,7 @@ namespace SZPushService.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled =  true;
             ContextKey = "SZPushService.Infrastructure.SZDbContext";
         }
 

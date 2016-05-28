@@ -1,11 +1,29 @@
 ﻿@model SZPushService.Model.Keyword
 <div>
+    @{ 
+        var itemDisabled = ! Model.IsEnabled;
+    }
     @using (Html.BeginForm("Update", "Home", FormMethod.Post, new { @class = "form-inline" }))
     {
         @Html.HiddenFor(x => x.Id);
-        @Html.DisplayFor(x => x.Id, new { @class = "form-control"});
-        @Html.TextBoxFor(x => x.Word, new { @class = "form-control" });
-        <input type="submit" class="btn btn-success btn-sm form-control" value="√" />
+        @Html.HiddenFor(x => x.IsEnabled);
+        //@Html.DisplayFor(x => x.Id, new { @class = "form-control"});
+        if (itemDisabled)
+        {
+            @Html.TextBoxFor(x => x.Word, new { @readonly = "readonly" , @class = "form-control" });
+            <input type="submit" class="btn btn-success btn-sm form-control" value="√" disabled="disabled" />
+        }
+        else
+        {
+            @Html.TextBoxFor(x => x.Word, new { @class = "form-control" });
+            <input type="submit" class="btn btn-success btn-sm form-control" value="√" />
+        }
+    }
+
+    @using (Html.BeginForm("Toggle", "Home", FormMethod.Post, new { @class = "form-inline" }))
+    {
+        @Html.HiddenFor(x => x.Id);
+        <input type="submit" class="btn btn-info btn-sm form-control" value="↔" />
     }
 
     @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { @class = "form-inline" }))
@@ -13,8 +31,6 @@
         @Html.HiddenFor(x => x.Id);
         <input type="submit" class="btn btn-danger btn-sm form-control" value="-" />
     }
-
-
 
 </div>
 
