@@ -92,7 +92,7 @@ namespace SZPushService
                 body += ( message.Html+"<br/>" );
             }
             Console.WriteLine("Sending Email...");
-            Email.Send(title, body);
+            Email.Send("This is a fixed title", body);
             Console.WriteLine("Email successfully sent");
         }
     }

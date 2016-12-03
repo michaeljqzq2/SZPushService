@@ -12,6 +12,7 @@ namespace SZPushService
         private static bool isWorking = false;
         static void Main(string[] args)
         {
+            //Email.Send("this is a title", "web job started");
             timers = new List<Timer>();
             Initialize();
             while (true)
