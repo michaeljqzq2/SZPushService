@@ -30,7 +30,7 @@ namespace SZPushService.Model
                 foreach (var element in elements)
                 {
                     string articleId = element.Attributes["articleid"];
-                    var titleElement = element.GetElementsByTag("h4")[0].Child(0);
+                    var titleElement = element.GetElementsByTag("h2")[0].Child(0);
                     string link = titleElement.Attributes["href"];
                     string title = titleElement.Html();
                     var compareResult = FindKeyword(title, keywords);
@@ -85,14 +85,14 @@ namespace SZPushService.Model
         private static List<Message> ParserForFaxian(string htmlPage, List<string> keywords)
         {
             var doc = NSoupClient.Parse(htmlPage);
-            var elements = doc.GetElementsByTag("li").Where(e => e.HasClass("list"));
+            var elements = doc.GetElementsByTag("li").Where(e => e.HasAttr("articleid"));
             List<Message> result = new List<Message>();
             using (var db = new SZDbContext())
             {
                 foreach (var element in elements)
                 {
                     string articleId = element.Attributes["articleid"];
-                    var titleElement = element.GetElementsByTag("h2")[0].Child(0);
+                    var titleElement = element.GetElementsByTag("h5")[0].Child(0);
                     string link = titleElement.Attributes["href"];
                     string title = titleElement.Html();
                     var compareResult = FindKeyword(title, keywords);
