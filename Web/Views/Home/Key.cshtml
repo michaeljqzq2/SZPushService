@@ -17,15 +17,18 @@
     </style>
 </head>
 <body>
-    @foreach (var item in Model.OrderByDescending(x => x.IsEnabled)) {
-        @Html.Partial("~/Views/Home/KeywordEditor.cshtml", item);
-    }
-    @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "form-inline" }))
-    {
-        @Html.TextBox("Word", null, new { @class = "form-control" });
-        @Html.Hidden("IsEnabled", true);
-        <input class="btn btn-sm btn-success form-control"
-               type="submit" value="+" />
-    }
+@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "form-inline" }))
+{
+    @Html.TextBox("Word", null, new { @class = "form-control" });
+    @Html.Hidden("IsEnabled", true);
+    <input class="btn btn-sm btn-success form-control"
+           type="submit" value="+" />
+}
+@foreach (var item in Model.OrderByDescending(x => x.IsEnabled))
+{
+    @Html.Partial("~/Views/Home/KeywordEditor.cshtml", item)
+    ;
+}
+
 </body>
 </html>
