@@ -18,3 +18,4 @@ namespace SZPushService.Model
         }
     }
 }
+

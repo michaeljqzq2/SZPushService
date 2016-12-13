@@ -15,6 +15,7 @@ namespace SZPushService.Model
         static Parser()
         {
             Parsers = new Dictionary<string, Func<string, List<string>, List<Message>>>();
+            Parsers.Add("Youhui", ParserForDomestic);
             Parsers.Add("Domestic", ParserForDomestic);
             Parsers.Add("Faxian", ParserForFaxian);
             Parsers.Add("Manmanbuy", ParserForManmanbuy);
@@ -30,7 +31,8 @@ namespace SZPushService.Model
                 foreach (var element in elements)
                 {
                     string articleId = element.Attributes["articleid"];
-                    var titleElement = element.GetElementsByTag("h2")[0].Child(0);
+                    if (articleId == null || articleId == "") continue;
+                    var titleElement = element.GetElementsByClass("itemName")[0].Child(0);
                     string link = titleElement.Attributes["href"];
                     string title = titleElement.Html();
                     var compareResult = FindKeyword(title, keywords);
