@@ -5,3 +5,5 @@ Web/obj
 *.suo
 .vs
 packages
+SZPushService/Properties/PublishProfiles/*
+Web/Properties/PublishProfiles/*
