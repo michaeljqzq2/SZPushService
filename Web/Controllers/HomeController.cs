@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using SZPushService.Infrastructure;
@@ -60,6 +63,26 @@ namespace Web.Controllers
             keywordRepository.Save(keyword);
             TempData["message"] = string.Format("{0} has been created", keyword.Word);
             return RedirectToAction("Key");
+        }
+
+        public void Ping204()
+        {
+            Response.Status = "204 No Content";
+        }
+
+        public void PingWebAppSCM()
+        {
+            string websiteName = "szmj";
+            string webjobName = "SZPushService";
+            string userName = "$szmj";
+            string userPWD = "Jt3Dxc5c7WfWGuHrondgYuRpnS7cbkfkB3fxTMiAk1njvsckjqGPuu1qaWb9";
+            string webjobUrl = string.Format("https://{0}.scm.azurewebsites.net/api/continuouswebjobs/{1}", websiteName, webjobName);
+
+            HttpClient client = new HttpClient();
+            string auth = "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ':' + userPWD));
+            client.DefaultRequestHeaders.Add("authorization", auth);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var data = client.GetAsync(webjobUrl).Result;
         }
 
         public ViewResult A()

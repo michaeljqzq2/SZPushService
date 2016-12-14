@@ -20,9 +20,15 @@ namespace Web
             );
 
             routes.MapRoute(
-                name: "Config2",
-                url: "a",
-                defaults: new { controller = "Home", action = "A" }
+                name: "204",
+                url: "204",
+                defaults: new { controller = "Home", action = "Ping204" }
+            );
+
+            routes.MapRoute(
+                name: "PingWebAppSCM",
+                url: "p",
+                defaults: new { controller = "Home", action = "PingWebAppSCM" }
             );
 
             routes.MapRoute(
