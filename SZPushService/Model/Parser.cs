@@ -38,6 +38,7 @@ namespace SZPushService.Model
                     var compareResult = FindKeyword(title, keywords);
                     if (compareResult == null) continue;
 
+                    // Add Index for column articleId in Sql
                     if (db.Messages.Any(msg => msg.ArticleId == articleId)) continue;
                     //if (db.Messages.Any(msg => msg.Title.TrimEnd(' ') == title.TrimEnd(' ')))
                     //{

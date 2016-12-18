@@ -24,7 +24,10 @@ namespace Web.Controllers
         }
         public ViewResult Index()
         {
-            return View(messageRepository.Messages.OrderByDescending(m=>m.Timestamp).Take(20));
+            // Add Index for column Timestamp
+            // Decrease rows to search
+            return View(messageRepository.Messages.Where(m=>m.Timestamp>DateTime.Now.AddDays(-2))
+                .OrderByDescending(m=>m.Timestamp).Take(20));
         }
         public ActionResult Key()
         {
