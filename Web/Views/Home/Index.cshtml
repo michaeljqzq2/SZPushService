@@ -4,8 +4,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<div>
+    @Html.ActionLink("Config", "Key", null, new { @class = "btn btn-default navi" })
+</div>
 
 @foreach (var item in Model)
 {

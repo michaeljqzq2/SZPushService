@@ -17,6 +17,9 @@
     </style>
 </head>
 <body>
+    <div>
+        @Html.ActionLink("Home", "Index", null, new { @class = "btn btn-default navi" })
+    </div>
 @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "form-inline" }))
 {
     @Html.TextBox("Word", null, new { @class = "form-control" });
