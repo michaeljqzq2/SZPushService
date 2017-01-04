@@ -84,7 +84,7 @@ namespace SZPushService
         {
             if (messages.Count == 0) return;
             Console.WriteLine("Writing Email...");
-            string title = string.Format("{0}",messages[0].Source.Substring(0,3));
+            string title = string.Format("{0}",messages[0].Source.Substring(0,1));
             string body = styles;
             foreach (var message in messages)
             {
@@ -92,7 +92,7 @@ namespace SZPushService
                 body += ( message.Html+"<br/>" );
             }
             Console.WriteLine("Sending Email...");
-            Email.Send("This is a fixed title", body);
+            Email.Send(title, body);
             Console.WriteLine("Email successfully sent");
         }
     }
