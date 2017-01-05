@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SZPushService.Model.Message>
+﻿@using System.Diagnostics
+@model IEnumerable<SZPushService.Model.Message>
 
 @{
     ViewBag.Title = "Index";
@@ -7,9 +8,19 @@
 <div>
     @Html.ActionLink("Config", "Key", null, new { @class = "btn btn-default navi" })
 </div>
-
+@{
+    Stopwatch s = Stopwatch.StartNew();
+}
 @foreach (var item in Model)
 {
     @Html.Raw(item.Html)
     <hr />
 }
+@{
+    s.Stop();
+    ViewBag.debugInfo += String.Format("View rendering cost {0}. ",s.ElapsedMilliseconds);
+}
+
+<script>
+    console.log("@ViewBag.debugInfo");
+</script>

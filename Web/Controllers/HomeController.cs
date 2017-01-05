@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -26,8 +27,12 @@ namespace Web.Controllers
         {
             // Add Index for column Timestamp
             // Decrease rows to search
-            return View(messageRepository.Messages.Where(m=>m.Timestamp>DateTime.Now.AddDays(-2))
-                .OrderByDescending(m=>m.Timestamp).Take(20));
+            Stopwatch s = Stopwatch.StartNew();
+            var messages = messageRepository.Messages.Where(m => m.Timestamp > DateTime.Now.AddDays(-2))
+                .OrderByDescending(m => m.Timestamp).Take(20);
+            s.Stop();
+            ViewBag.debugInfo = String.Format("fetch data from db cost {0}. ",s.ElapsedMilliseconds);
+            return View(messages);
         }
         public ActionResult Key()
         {
