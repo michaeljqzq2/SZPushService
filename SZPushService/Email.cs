@@ -15,7 +15,7 @@ namespace SZPushService
         private static readonly SmtpClient mSmtpClient; //主要处理用smtp方式发送此邮件的配置信息（如：邮件服务器、发送端口号、验证方式等等）
         private const int mSenderPort=25;   //发送邮件所用的端口号（htmp协议默认为25）
         private const string mSenderServerHost= "smtp.sina.com";    //发件箱的邮件服务器地址（IP形式或字符串形式均可）
-        private const string mSenderPassword = "sinamlw381109";    //发件箱的密码
+        private const string mSenderPassword = "sina2mlw381109";    //发件箱的密码
         private const string mSenderUsername = "michaeljqzq";   //发件箱的用户名（即@符号前面的字符串，例如：hello@163.com，用户名为：hello）
         private const bool mEnableSsl = true;    //是否对邮件内容进行socket层加密传输
         private const bool mEnablePwdAuthentication = true;  //是否对发件人邮箱进行密码验证
