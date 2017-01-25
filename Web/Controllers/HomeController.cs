@@ -30,6 +30,7 @@ namespace Web.Controllers
             Stopwatch s = Stopwatch.StartNew();
             var messages = messageRepository.Messages.Where(m => m.Timestamp > DateTime.Now.AddDays(-2))
                 .OrderByDescending(m => m.Timestamp).Take(20);
+            //var messages = messageRepository.Messages.Where(m => m.Id == 1);
             s.Stop();
             ViewBag.debugInfo = String.Format("fetch data from db cost {0}. ",s.ElapsedMilliseconds);
             return View(messages);
@@ -91,6 +92,11 @@ namespace Web.Controllers
             client.DefaultRequestHeaders.Add("authorization", auth);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var data = client.GetAsync(webjobUrl).Result;
+        }
+
+        public void SendEmail(string title,string body)
+        {
+            SZPushService.Email.Send(title,body);
         }
 
         public ViewResult A()
