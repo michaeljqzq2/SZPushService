@@ -7,6 +7,7 @@ using SZPushService.Model;
 using System.Net;
 using System.Data.Entity;
 using SZPushService.Infrastructure;
+using System.IO;
 
 namespace SZPushService
 {
@@ -50,6 +51,7 @@ namespace SZPushService
                 MyWebClient.Credentials = CredentialCache.DefaultCredentials;//获取或设置用于向Internet资源的请求进行身份验证的网络凭据
                 WebProxy proxy = new WebProxy("http://cache.sjtu.edu.cn:8080");
                 //MyWebClient.Proxy = proxy;
+                MyWebClient.Headers.Add(HttpRequestHeader.Cookie, "web_fx_ab=fx6");
                 Byte[] pageData = MyWebClient.DownloadData(url); //从指定网站下载数据
                 string pageHtml = null;
                 if (UData.Urls[type][1] == "GB2312")
@@ -85,11 +87,11 @@ namespace SZPushService
             if (messages.Count == 0) return;
             Console.WriteLine("Writing Email...");
             string title = string.Format("{0}",messages[0].Source.Substring(0,1));
-            string body = styles;
+            string body = "";
             foreach (var message in messages)
             {
                 title += ( " " + message.Keyword );
-                body += ( message.Html+"<br/>" );
+                body += ( message.Title + "\n\n" + message.Detail);
             }
             Console.WriteLine("Sending Email...");
             Email.Send(title, body);

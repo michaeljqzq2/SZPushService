@@ -102,7 +102,7 @@ namespace SZPushService.Model
                     if (compareResult == null) continue;
 
                     if (db.Messages.Any(msg => msg.ArticleId == articleId)) continue;
-                    if (db.Messages.Any(msg => msg.Title.TrimEnd(new char[] { ' ' }) == title.TrimEnd(new char[] { ' ' }))) continue;
+                    //if (db.Messages.Any(msg => msg.Title.TrimEnd(new char[] { ' ' }) == title.TrimEnd(new char[] { ' ' }))) continue;
 
                     Regex priceRegex = new Regex(@"<span class=""red"">([^<]*)</span>");
                     Match m = priceRegex.Match(title);
@@ -120,10 +120,9 @@ namespace SZPushService.Model
                         title = title.Replace(mm.Groups[0].Value, mm.Groups[1].Value);
                     }
 
-                    var detailElement = element.GetElementsByClass("listItem")[0].GetElementsByTag("p");
-                    if (detailElement.Count == 0) Console.WriteLine("Can't locate info about details");
+                    var detailElement = element.GetElementsByClass("feed-ver-descripe")[0];
                     Regex detailRegex = new Regex(@"<a[^>]+>([^<]*)</a>");
-                    string detail = detailElement[0].Html();
+                    string detail = detailElement.Html();
                     ms = detailRegex.Matches(detail);
                     foreach (Match mm in ms)
                     {

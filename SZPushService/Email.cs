@@ -75,7 +75,7 @@ namespace SZPushService
                     {
                         mMailMessage.Subject = subject;
                         mMailMessage.Body = emailBody;
-                        mMailMessage.IsBodyHtml = true;
+                        //mMailMessage.IsBodyHtml = true;
                         mMailMessage.BodyEncoding = System.Text.Encoding.UTF8;
                         mMailMessage.Priority = MailPriority.Normal;
 
