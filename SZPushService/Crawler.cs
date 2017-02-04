@@ -92,6 +92,7 @@ namespace SZPushService
             {
                 title += ( " " + message.Keyword );
                 body += ( message.Title + "\n\n" + message.Detail);
+                body += (" http://szmj.azurewebsites.net/s?id=" + message.Id);
             }
             Console.WriteLine("Sending Email...");
             Email.Send(title, body);

@@ -38,6 +38,12 @@ namespace Web
             );
 
             routes.MapRoute(
+                name: "Single",
+                url: "s",
+                defaults: new { controller = "Home", action = "Single" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

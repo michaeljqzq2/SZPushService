@@ -40,6 +40,12 @@ namespace Web.Controllers
             return View(keywordRepository.Keywords);
         }
 
+        public ViewResult Single(int id)
+        {
+            var messages = messageRepository.Messages.Where(m=>m.Id == id);
+            return View("Index",messages);
+        }
+
         public RedirectToRouteResult Update(Keyword keyword)
         {
             keywordRepository.Save(keyword);
