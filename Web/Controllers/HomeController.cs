@@ -18,20 +18,22 @@ namespace Web.Controllers
         // GET: Home
         private KeywordRepository keywordRepository;
         private MessageRepository messageRepository;
+        private const int NUMPERPAGE = 20;
         public HomeController()
         {
             keywordRepository = new KeywordRepository();
             messageRepository = new MessageRepository();
         }
-        public ViewResult Index()
+        public ViewResult Index(int page = 0)
         {
             // Add Index for column Timestamp
             // Decrease rows to search
             Stopwatch s = Stopwatch.StartNew();
-            var messages = messageRepository.Messages.Where(m => m.Timestamp > DateTime.Now.AddDays(-2))
-                .OrderByDescending(m => m.Timestamp).Take(20);
+            var messages = messageRepository.Messages
+                .OrderByDescending(m => m.Timestamp).Skip(NUMPERPAGE*page).Take(NUMPERPAGE);
             //var messages = messageRepository.Messages.Where(m => m.Id == 1);
             s.Stop();
+            ViewBag.nextPage = page + 1;
             ViewBag.debugInfo = String.Format("fetch data from db cost {0}. ",s.ElapsedMilliseconds);
             return View(messages);
         }

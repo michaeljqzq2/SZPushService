@@ -22,6 +22,10 @@
     ViewBag.debugInfo += String.Format("View rendering cost {0}. ",s.ElapsedMilliseconds);
 }
 
+<div>
+    @Html.ActionLink("Next Page", "Index", new {page=ViewBag.nextPage}, new { @class = "btn btn-default navi" })
+</div>
+
 <script>
     console.log("@ViewBag.debugInfo");
 </script>
