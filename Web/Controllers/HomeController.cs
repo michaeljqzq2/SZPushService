@@ -24,13 +24,40 @@ namespace Web.Controllers
             keywordRepository = new KeywordRepository();
             messageRepository = new MessageRepository();
         }
-        public ViewResult Index(int page = 0)
+        public ViewResult Index(int page = 0,int filter = -1)
         {
             // Add Index for column Timestamp
             // Decrease rows to search
             Stopwatch s = Stopwatch.StartNew();
-            var messages = messageRepository.Messages
-                .OrderByDescending(m => m.Timestamp).Skip(NUMPERPAGE*page).Take(NUMPERPAGE);
+            IEnumerable<Message> messages = null;
+            if (filter == -1)
+            {
+                messages = messageRepository.Messages
+                                .OrderByDescending(m => m.Timestamp).Skip(NUMPERPAGE*page).Take(NUMPERPAGE);
+            }
+            else
+            {
+                string key = keywordRepository.Keywords.Single(k => k.Id == filter).Word;
+                messages = messageRepository.Messages.Where(m=>m.Keyword == key)
+                                .OrderByDescending(m => m.Timestamp).Skip(NUMPERPAGE * page).Take(NUMPERPAGE);
+            }
+            ViewBag.selectedKeyId = filter;
+            var allKeys = keywordRepository.Keywords.Where(k => k.IsEnabled);
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var keyword in allKeys)
+            {
+                SelectListItem tmp = null;
+                if (keyword.Id == filter)
+                {
+                    tmp = new SelectListItem{Text = keyword.Word,Value = keyword.Id.ToString(),Selected = true};
+                }
+                else
+                {
+                    tmp = new SelectListItem { Text = keyword.Word, Value = keyword.Id.ToString() };
+                }
+                items.Add(tmp);
+            }
+            ViewBag.filter = items;
             //var messages = messageRepository.Messages.Where(m => m.Id == 1);
             s.Stop();
             ViewBag.nextPage = page + 1;
