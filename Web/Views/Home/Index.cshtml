@@ -14,7 +14,10 @@
 @using (Html.BeginForm())
 {
     <fieldset>
-        @Html.DropDownList("filter", (IEnumerable<SelectListItem>) ViewBag.filter, new {@class = "form-control"})
+        @if (ViewBag.filter != null)
+        {
+            @Html.DropDownList("filter", (IEnumerable<SelectListItem>) ViewBag.filter, new {@class = "form-control"})
+        }
     </fieldset>
 }
 @foreach (var item in Model)
