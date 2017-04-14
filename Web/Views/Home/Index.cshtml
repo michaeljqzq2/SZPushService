@@ -32,7 +32,7 @@
 }
 
 <div>
-    @Html.ActionLink("Next Page", "Index", new {page=ViewBag.nextPage}, new { @class = "btn btn-default navi" })
+    @Html.ActionLink("Next Page", "Index", new {page=ViewBag.nextPage,filter=ViewBag.filter}, new { @class = "btn btn-default navi" })
 </div>
 
 <script>
