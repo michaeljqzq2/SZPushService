@@ -57,6 +57,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="M2Mqtt.Net, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\M2Mqtt.4.3.0.0\lib\net45\M2Mqtt.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NSoup, Version=0.8.0.0, Culture=neutral, PublicKeyToken=6d44e53f0a65e802, processorArchitecture=MSIL">
       <HintPath>..\packages\NSoup.0.8.0\lib\net40\NSoup.dll</HintPath>
       <Private>True</Private>
@@ -105,6 +109,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\PublishProfiles\szmj %285%29.pubxml" />
     <None Include="Properties\PublishProfiles\szmj.pubxml" />
     <None Include="Properties\webjob-publish-settings.json" />
     <None Include="Scripts\jquery-2.1.4.min.map" />

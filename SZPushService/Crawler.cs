@@ -8,6 +8,7 @@ using System.Net;
 using System.Data.Entity;
 using SZPushService.Infrastructure;
 using System.IO;
+using uPLibrary.Networking.M2Mqtt;
 
 namespace SZPushService
 {
@@ -39,7 +40,7 @@ namespace SZPushService
             var result = parser(pageHtml, query);
             Console.WriteLine("[{0}] Detect {1} updates.", stype, result.Count);
             CreateSendEmail(result, UData.Urls[stype][2]);
-           
+            MqttPush(result);
         }
 
         private string FetchHTML(string type)
@@ -97,6 +98,21 @@ namespace SZPushService
             Console.WriteLine("Sending Email...");
             Email.Send(title, body);
             Console.WriteLine("Email successfully sent");
+        }
+
+        private void MqttPush(List<Message> messages)
+        {
+            if (messages.Count > 0)
+            {
+                MqttClient client = new MqttClient("fqmj.cloudapp.net");
+                client.Connect(Guid.NewGuid().ToString());
+                foreach (var message in messages)
+                {
+                    string content = message.Source.Substring(0, 1) + " " + message.Keyword + " " + message.Title;
+                    client.Publish("p/sz", Encoding.ASCII.GetBytes(content));
+                }
+                client.Disconnect();
+            }
         }
     }
 }
