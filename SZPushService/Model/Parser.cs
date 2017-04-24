@@ -19,6 +19,7 @@ namespace SZPushService.Model
             Parsers.Add("Domestic", ParserForDomestic);
             Parsers.Add("Faxian", ParserForFaxian);
             Parsers.Add("Manmanbuy", ParserForManmanbuy);
+            Parsers.Add("Guangdiu", ParserForGuangdiu);
         }
 
         private static List<Message> ParserForDomestic(string htmlPage, List<string> keywords)
@@ -80,6 +81,61 @@ namespace SZPushService.Model
                     db.SaveChanges();
                     result.Add(message);
                     Console.WriteLine("[Domestic] A new item added:{0}", title);
+                }
+            }
+            return result;
+        }
+
+        private static List<Message> ParserForGuangdiu(string htmlPage, List<string> keywords)
+        {
+            var doc = NSoupClient.Parse(htmlPage);
+            var elements = doc.GetElementsByTag("div").Where(e => e.HasClass("gooditem"));
+            List<Message> result = new List<Message>();
+            string url = "http://guangdiu.com/";
+            using (var db = new SZDbContext())
+            {
+                foreach (var element in elements)
+                {
+                    var mainElement = element.GetElementsByClass("goodname")[0];
+                    string articleId = mainElement.Attributes["href"];
+                    if (articleId == null || articleId == "") continue;
+                    string link = url+articleId;
+                    string title = mainElement.Attributes["title"];
+                    var compareResult = FindKeyword(title, keywords);
+                    if (compareResult == null) continue;
+
+                    // Add Index for column articleId in Sql
+                    if (db.Messages.Any(msg => msg.ArticleId == articleId)) continue;
+                    //if (db.Messages.Any(msg => msg.Title.TrimEnd(' ') == title.TrimEnd(' ')))
+                    //{
+
+                    //    continue;
+                    //}
+
+                    Regex detailRegex = new Regex(@"href=""(.*)""");
+                    string detail = element.OuterHtml();
+                    var ms = detailRegex.Matches(detail);
+                    foreach (Match mm in ms)
+                    {
+                        detail = detail.Replace(mm.Groups[1].Value, url+mm.Groups[1].Value);
+                    }
+
+
+                    var message = new Message()
+                    {
+                        ArticleId = articleId,
+                        Detail = "empty",
+                        Keyword = compareResult,
+                        Price = "empty",
+                        Title = title,
+                        Timestamp = DateTime.Now,
+                        Source = "Guangdiu",
+                        Html = detail
+                    };
+                    db.Messages.Add(message);
+                    db.SaveChanges();
+                    result.Add(message);
+                    Console.WriteLine("[Guangdiu] A new item added:{0}", title);
                 }
             }
             return result;
