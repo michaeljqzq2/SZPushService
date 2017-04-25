@@ -1,0 +1,113 @@
+﻿/* 折扣列表区 - 单条折扣 */
+.gooditem
+{
+display:block;
+position: relative;
+}
+
+.withborder 
+{
+border-bottom:1px solid #f2f2f2;
+background-color:#FFFFFF;
+}
+
+.goodname
+{
+font-size:18px; 
+font-weight:bold;
+color:#555;
+line-height: 1.5em;
+word-break:break-all;
+overflow: hidden;
+}
+
+.goodname_event
+{
+display:block;
+float:left;
+margin-bottom:10px;
+font-size:14px;
+color:#5db95b;
+height:19px;
+overflow:hidden;
+}
+
+.imgandbtn
+{
+display:block;
+float: left;
+
+}
+
+.showpic
+{
+display:block;
+float: left;
+width: 140px;
+height:140px;
+margin-left: 10px;
+margin-top: 15px;
+margin-bottom: 15px;
+}
+
+.iteminfoarea
+{
+display:block;
+float:left;
+margin-top: 20px;
+margin-left:20px;
+margin-right:20px;
+width:500px;
+overflow: hidden;
+}
+
+.mallandname
+{
+display:block;
+float:left;
+margin-bottom:10px;
+overflow:hidden;
+}
+
+.emphricepart
+{
+color:#49b347;
+}
+
+.shortabstract
+{
+display:block;
+float:left;
+font-size:13px;
+color:#999;
+margin-bottom:10px;
+overflow:hidden;
+line-height: 150%;
+word-break:break-all;
+}
+
+.abstractcontent
+{
+color:#959595;
+word-break:break-all;
+}
+
+.gotodetail
+{
+color:#5db95b;
+}
+
+.infofrom
+{
+display:block;
+float:left;
+}
+
+.latesttime{
+        color: #5db95b;
+}
+
+.rightlinkshigh
+{
+margin-top: 40px;
+}
