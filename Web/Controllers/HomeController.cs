@@ -32,14 +32,12 @@ namespace Web.Controllers
             IEnumerable<Message> messages = null;
             if (filter == -1)
             {
-                messages = messageRepository.Messages
-                                .OrderByDescending(m => m.Timestamp).Skip(NUMPERPAGE*page).Take(NUMPERPAGE);
+                messages = messageRepository.GetPart(page, NUMPERPAGE);
             }
             else
             {
                 string key = keywordRepository.Keywords.Single(k => k.Id == filter).Word;
-                messages = messageRepository.Messages.Where(m=>m.Keyword == key)
-                                .OrderByDescending(m => m.Timestamp).Skip(NUMPERPAGE * page).Take(NUMPERPAGE);
+                messages = messageRepository.GetPartKeyword(page, NUMPERPAGE, key);
             }
             ViewBag.selectedKeyId = filter;
             var allKeys = keywordRepository.Keywords.Where(k => k.IsEnabled);

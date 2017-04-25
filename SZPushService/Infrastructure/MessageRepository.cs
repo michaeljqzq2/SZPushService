@@ -16,5 +16,15 @@ namespace SZPushService.Infrastructure
         }
 
         public IEnumerable<Message> Messages { get { return db.Messages; } }
+
+        public IEnumerable<Message> GetPart(int i,int n)
+        {
+            return db.Messages.OrderByDescending(m => m.Timestamp).Skip(n * i).Take(n);
+        }
+
+        public IEnumerable<Message> GetPartKeyword(int i, int n, string key)
+        {
+            return db.Messages.Where(m => m.Keyword == key).OrderByDescending(m => m.Timestamp).Skip(n * i).Take(n);
+        }
     }
 }
