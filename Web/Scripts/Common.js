@@ -6,7 +6,7 @@
     //Object.defineProperty(document, "referrer", { get: function () { return "www.smzdm.com"; } });
 
     window.img_array = new Array();
-    $("img:not([src*='manmanbuy'])").each( function (i, val) {
+    $("img:not([src*='manmanbuy'],[src*='guangdiu'])").each(function (i, val) {
         var ifr = create_img_iframe($(val).attr("src"), i);
         $(val).after(ifr);
         $(val).remove();

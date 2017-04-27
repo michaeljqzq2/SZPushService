@@ -69,7 +69,7 @@ namespace Web.Controllers
 
         public ViewResult Single(int id)
         {
-            var messages = messageRepository.Messages.Where(m=>m.Id == id);
+            var messages = messageRepository.GetPart(0, 100).Where(m=>m.Id == id);
             return View("Index",messages);
         }
 
