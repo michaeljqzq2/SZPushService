@@ -7,7 +7,7 @@ namespace SZPushService.Migrations
     {
         public override void Up()
         {
-            AddColumn("Keywords", "IsEnabled", c => c.Boolean(nullable: false, defaultValue: true));
+            //AddColumn("Keywords", "IsEnabled", c => c.Boolean(nullable: false, defaultValue: true));
         }
         
         public override void Down()

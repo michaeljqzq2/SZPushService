@@ -16,5 +16,6 @@ namespace SZPushService.Model
         public string Word { get; set; }
         [Required]
         public bool IsEnabled { get; set; }
+        public bool Remind { get; set; }
     }
 }

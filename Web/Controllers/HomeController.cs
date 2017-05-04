@@ -90,6 +90,16 @@ namespace Web.Controllers
             return RedirectToAction("Key");
         }
 
+        public RedirectToRouteResult ToggleRemind(Keyword keyword)
+        {
+            Keyword result = keywordRepository.ToggleRemind(keyword);
+            if (result != null)
+            {
+                TempData["message"] = string.Format("Reminder of {0} has been {1}", result.Word, result.Remind ? "enabled" : "disabled");
+            }
+            return RedirectToAction("Key");
+        }
+
         public RedirectToRouteResult Delete(Keyword keyword)
         {
             Keyword result = keywordRepository.Remove(keyword);

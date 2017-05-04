@@ -53,5 +53,16 @@ namespace SZPushService.Infrastructure
             }
             return dbentry;
         }
+
+        public Keyword ToggleRemind(Keyword k)
+        {
+            Keyword dbentry = db.Keywords.Find(k.Id);
+            if (dbentry != null)
+            {
+                dbentry.Remind = !dbentry.Remind;
+                db.SaveChanges();
+            }
+            return dbentry;
+        }
     }
 }

@@ -24,8 +24,8 @@
 {
     @Html.TextBox("Word", null, new { @class = "form-control" });
     @Html.Hidden("IsEnabled", true);
-    <input class="btn btn-sm btn-success form-control"
-           type="submit" value="+" />
+    <button class="btn btn-sm btn-success form-control fa fa-plus"
+           type="submit"></button>
 }
 @foreach (var item in Model.OrderByDescending(x => x.IsEnabled))
 {

@@ -39,7 +39,7 @@ namespace SZPushService
             Func<string, List<string>, List<Message>> parser = Parser.Parsers[stype];
             var result = parser(pageHtml, query);
             Console.WriteLine("[{0}] Detect {1} updates.", stype, result.Count);
-            CreateSendEmail(result, UData.Urls[stype][2]);
+            //CreateSendEmail(result, UData.Urls[stype][2]);
             MqttPush(result);
         }
 
@@ -83,6 +83,17 @@ namespace SZPushService
             }
         }
 
+        private bool isKeywordRemind(string keyword)
+        {
+            using (var db = new SZDbContext())
+            {
+                var query = (from x in db.Keywords
+                            where x.Word == keyword
+                            select x.Remind).FirstOrDefault();
+                return query;
+            }
+        }
+
         private void CreateSendEmail(List<Message> messages,string styles)
         {
             if (messages.Count == 0) return;
@@ -108,8 +119,13 @@ namespace SZPushService
                 client.Connect(Guid.NewGuid().ToString());
                 foreach (var message in messages)
                 {
+                    if (!isKeywordRemind(message.Keyword))
+                    {
+                        continue;
+                    }
                     string content = message.Source.Substring(0, 1) + " " + message.Keyword + " " + message.Title;
                     client.Publish("p/sz", Encoding.ASCII.GetBytes(content));
+                    Console.WriteLine("Mqtt message has been sent about" + message.Title);
                 }
                 client.Disconnect();
             }

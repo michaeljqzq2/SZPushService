@@ -11,25 +11,46 @@
         if (itemDisabled)
         {
             @Html.TextBoxFor(x => x.Word, new { @readonly = "readonly" , @class = "form-control" });
-            <input type="submit" class="btn btn-success btn-sm form-control" value="√" disabled="disabled" />
+            <button type="submit" class="btn btn-success btn-sm form-control fa fa-check" disabled="disabled" ></button>
         }
         else
         {
             @Html.TextBoxFor(x => x.Word, new { @class = "form-control" });
-            <input type="submit" class="btn btn-success btn-sm form-control" value="√" />
+            <button type="submit" class="btn btn-success btn-sm form-control fa fa-check" ></button>
         }
     }
 
     @using (Html.BeginForm("Toggle", "Home", FormMethod.Post, new { @class = "form-inline" }))
     {
         @Html.HiddenFor(x => x.Id);
-        <input type="submit" class="btn btn-info btn-sm form-control" value="↔" />
+        if (itemDisabled)
+        {
+            <button type="submit" class="btn btn-info btn-sm form-control fa fa-unlock"></button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-info btn-sm form-control fa fa-lock"></button>
+        }
+    }
+
+    @using (Html.BeginForm("ToggleRemind", "Home", FormMethod.Post, new { @class = "form-inline" }))
+    {
+        @Html.HiddenFor(x => x.Id);
+        if (Model.Remind)
+        {
+            <button type="submit" class="btn btn-warning btn-sm form-control fa fa-bell-slash"></button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-warning btn-sm form-control fa fa-bell"></button>
+        }
+
     }
 
     @using (Html.BeginForm("Delete", "Home", FormMethod.Post, new { @class = "form-inline" }))
     {
         @Html.HiddenFor(x => x.Id);
-        <input type="submit" class="btn btn-danger btn-sm form-control" value="-" />
+        <button type="submit" class="btn btn-danger btn-sm form-control fa fa-remove"></button>
     }
 
 </div>
