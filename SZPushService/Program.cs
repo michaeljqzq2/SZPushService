@@ -14,9 +14,6 @@ namespace SZPushService
         private static bool isWorking = false;
         static void Main(string[] args)
         {
-            MqttClient client = new MqttClient("fqmj.cloudapp.net");
-            client.Connect(Guid.NewGuid().ToString());
-            var msgId = client.Publish("p/sz", Encoding.ASCII.GetBytes("testtest"),1,true);
             //Email.Send("this is a title", "web job started");
             timers = new List<Timer>();
             Initialize();
