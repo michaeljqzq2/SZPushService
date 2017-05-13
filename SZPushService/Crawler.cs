@@ -124,9 +124,10 @@ namespace SZPushService
                         continue;
                     }
                     string content = message.Source.Substring(0, 1) + " " + message.Keyword + " " + message.Title;
-                    client.Publish("p/sz", Encoding.ASCII.GetBytes(content));
-                    Console.WriteLine("Mqtt message has been sent about" + message.Title);
+                    client.Publish("p/sz", Encoding.UTF8.GetBytes(content));
+                    Console.WriteLine("Mqtt message has been sent about " + message.Title);
                 }
+                System.Threading.Thread.Sleep(2000);
                 client.Disconnect();
             }
         }
