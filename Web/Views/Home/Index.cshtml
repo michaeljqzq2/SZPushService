@@ -23,6 +23,7 @@
 @foreach (var item in Model)
 {
     <h3>@item.Source</h3>
+    <h5>@item.Timestamp</h5>
     @Html.Raw(item.Html.Replace("http://imgcdn.guangdiu.com/328d93d2428093780be3856d1987289d.jpg?imageView2/2/w/224/h/224?0.3852673893163163", "http://imgcdn.guangdiu.com/328d93d2428093780be3856d1987289d.jpg?imageView2/2/w/224/h/224"))
     <hr />
 }
