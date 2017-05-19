@@ -102,12 +102,16 @@ namespace SZPushService
             string body = "";
             foreach (var message in messages)
             {
-                title += ( " " + message.Keyword );
-                body += ( message.Title + "\n\n" + message.Detail);
+                if (!isKeywordRemind(message.Keyword))
+                {
+                    continue;
+                }
+                title = message.Keyword;
+                body += message.Title + "\n\n" + message.Detail;
                 body += (" http://szmj.azurewebsites.net/s?id=" + message.Id);
+                Email.Send(title, body);
             }
             Console.WriteLine("Sending Email...");
-            Email.Send(title, body);
             Console.WriteLine("Email successfully sent");
         }
 
